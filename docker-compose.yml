@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  database:
+    container_name: redis_database
+    image: postgres:15.0
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: redis_study
+      PGDATA: /data
+    ports:
+      - '5450:5432'
+    volumes:
+      - ./database_data:/data
+  cache:
+    container_name: redis
+    image: redis/redis-stack:latest
+    ports:
+      - '6379:6379'
+      - '8001:8001'
+    environment:
+      - REDIS_ARGS = "--appendonly no --save 20 10 --loglevel warning --requirepass qwerTrewq@121"
+    volumes:
+      - ./redis_data:/data
+volumes:
+  cache:
+    driver: local

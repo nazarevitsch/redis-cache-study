@@ -1,0 +1,34 @@
+server:
+  port: 9095
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5450/redis_study
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  flyway:
+    enabled: true
+    table: flyway_schema_redis_study
+    locations: classpath:/sql
+    baseline-on-migrate: true
+    url: jdbc:postgresql://localhost:5450/redis_study
+    user: postgres
+    password: postgres
+  data:
+    redis:
+      database: 0
+      host: localhost
+      port: 6379
+      timeout: 60000
+      ttl:
+        general: 50
+        person: 20
+        business: 500
+      topic:
+        name: redis-study
